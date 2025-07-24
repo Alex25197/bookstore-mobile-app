@@ -76,4 +76,9 @@ export class BooksPage implements OnInit {
       await this.loadBooks(); // Recargar la lista después de crear un libro
     }
   }
+
+  async handleRefresh(event: any) {
+    await this.loadBooks();
+    event.target.complete();
+  }
 } 

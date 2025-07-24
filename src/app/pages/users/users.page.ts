@@ -48,4 +48,9 @@ export class UsersPage implements OnInit {
       await this.loadUsers(); // Recargar la lista después de crear un usuario
     }
   }
+
+  async handleRefresh(event: any) {
+    await this.loadUsers();
+    event.target.complete();
+  }
 } 
