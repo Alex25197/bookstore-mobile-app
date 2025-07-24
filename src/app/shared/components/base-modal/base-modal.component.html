@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start" *ngIf="showBackButton">
+      <ion-button (click)="onBack()">
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    
+    <ion-title>{{ title }}</ion-title>
+    
+    <ion-buttons slot="end" *ngIf="showCloseButton">
+      <ion-button (click)="onDismiss()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [class]="modalClass">
+  <ng-content></ng-content>
+</ion-content>
+
+<ion-footer *ngIf="modalClass !== 'no-footer'">
+  <ng-content select="[footer]"></ng-content>
+</ion-footer> 

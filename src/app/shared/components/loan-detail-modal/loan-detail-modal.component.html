@@ -1,0 +1,103 @@
+<app-base-modal 
+  [title]="'Detalles del Préstamo'" 
+  (dismissModal)="onDismiss()">
+
+  <!-- Loading spinner -->
+  <div class="loading-container" *ngIf="isLoading">
+    <ion-spinner name="circular"></ion-spinner>
+    <p>Cargando detalles...</p>
+  </div>
+
+  <!-- Error message -->
+  <div class="error-container" *ngIf="error">
+    <ion-icon name="alert-circle" color="danger"></ion-icon>
+    <p>{{ error }}</p>
+  </div>
+
+  <!-- Loan details -->
+  <div class="loan-details" *ngIf="loan && !isLoading">
+    <!-- Status badge -->
+    <div class="status-badge">
+      <ion-badge [color]="loan.Returned ? 'success' : 'warning'">
+        {{ loan.Returned ? 'Devuelto' : 'En préstamo' }}
+      </ion-badge>
+    </div>
+
+    <!-- Book details -->
+    <ion-card>
+      <ion-card-header>
+        <ion-card-subtitle>Libro</ion-card-subtitle>
+        <ion-card-title>{{ loan.Book.Title }}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-list lines="none">
+          <ion-item>
+            <ion-icon name="person" slot="start"></ion-icon>
+            <ion-label>
+              <p>Autor</p>
+              <h3>{{ loan.Book.Author }}</h3>
+            </ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-icon name="barcode" slot="start"></ion-icon>
+            <ion-label>
+              <p>ISBN</p>
+              <h3>{{ loan.Book.Isbn }}</h3>
+            </ion-label>
+          </ion-item>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- User details -->
+    <ion-card>
+      <ion-card-header>
+        <ion-card-subtitle>Usuario</ion-card-subtitle>
+        <ion-card-title>{{ loan.User.Name }}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-list lines="none">
+          <ion-item>
+            <ion-icon name="mail" slot="start"></ion-icon>
+            <ion-label>
+              <p>Email</p>
+              <h3>{{ loan.User.Email }}</h3>
+            </ion-label>
+          </ion-item>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Loan dates -->
+    <ion-card>
+      <ion-card-header>
+        <ion-card-subtitle>Fechas</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-list lines="none">
+          <ion-item>
+            <ion-icon name="calendar-outline" slot="start"></ion-icon>
+            <ion-label>
+              <p>Fecha de préstamo</p>
+              <h3>{{ loan.LoanDate | date:'medium' }}</h3>
+            </ion-label>
+          </ion-item>
+          <ion-item *ngIf="loan.ReturnDate">
+            <ion-icon name="calendar-check" slot="start"></ion-icon>
+            <ion-label>
+              <p>Fecha de devolución</p>
+              <h3>{{ loan.ReturnDate | date:'medium' }}</h3>
+            </ion-label>
+          </ion-item>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <!-- Footer actions -->
+  <div footer>
+    <ion-button expand="block" (click)="onDismiss()">
+      Cerrar
+    </ion-button>
+  </div>
+</app-base-modal> 

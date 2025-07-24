@@ -1,0 +1,80 @@
+.loading-container,
+.error-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  text-align: center;
+
+  ion-spinner {
+    margin-bottom: 1rem;
+  }
+
+  ion-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+
+  p {
+    color: var(--ion-color-medium);
+  }
+}
+
+.loan-details {
+  .status-badge {
+    text-align: center;
+    margin: 1rem 0;
+
+    ion-badge {
+      --padding-end: 1rem;
+      --padding-start: 1rem;
+      --padding-top: 0.5rem;
+      --padding-bottom: 0.5rem;
+      font-size: 1rem;
+    }
+  }
+
+  ion-card {
+    margin: 1rem 0;
+    box-shadow: none;
+    border: 1px solid var(--ion-color-light);
+
+    ion-card-header {
+      padding-bottom: 0;
+    }
+
+    ion-card-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+
+    ion-card-subtitle {
+      text-transform: uppercase;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.05rem;
+    }
+
+    ion-item {
+      --padding-start: 0;
+      --inner-padding-end: 0;
+
+      ion-icon {
+        color: var(--ion-color-medium);
+        margin-right: 1rem;
+      }
+
+      p {
+        color: var(--ion-color-medium);
+        font-size: 0.9rem;
+        margin-bottom: 0.25rem;
+      }
+
+      h3 {
+        font-weight: 500;
+        margin: 0;
+      }
+    }
+  }
+} 
