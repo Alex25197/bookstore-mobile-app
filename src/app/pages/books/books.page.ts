@@ -5,7 +5,11 @@ import { Book } from '../../core/models/book.model';
 import { BookService } from '../../core/services/book.service';
 import { ModalService } from '../../shared/services/modal.service';
 import { CreateBookModalComponent } from '../../shared/components/create-book-modal/create-book-modal.component';
+import { SelectUserModalComponent } from '../../shared/components/select-user-modal/select-user-modal.component';
+import { UserService } from '../../core/services/user.service';
+import { LoanService } from '../../core/services/loan.service';
 import { firstValueFrom } from 'rxjs';
+import { User } from '../../core/models/user.model';
 
 @Component({
   selector: 'app-books',
@@ -20,7 +24,9 @@ export class BooksPage implements OnInit {
 
   constructor(
     private bookService: BookService,
-    private modalService: ModalService
+    private modalService: ModalService,
+    private userService: UserService,
+    private loanService: LoanService
   ) {}
 
   ngOnInit() {
@@ -41,8 +47,25 @@ export class BooksPage implements OnInit {
   }
 
   async onLoanBook(book: Book) {
-    // TODO: Implementar la lógica de préstamo
-    console.log('Préstamo solicitado para:', book);
+    // 1. Obtener usuarios sin préstamos activos
+    const users: User[] = await firstValueFrom(this.userService.getUsers());
+    const eligibleUsers = users.filter(u => !u.Loans || u.Loans.length === 0);
+    if (eligibleUsers.length === 0) {
+      alert('No hay usuarios disponibles para prestar este libro.');
+      return;
+    }
+    // 2. Abrir modal para seleccionar usuario
+    const modal = await this.modalService.present(SelectUserModalComponent, { users: eligibleUsers });
+    const result = await modal.onWillDismiss();
+    if (result.data?.userId) {
+      // 3. Realizar el préstamo
+      try {
+        await firstValueFrom(this.loanService.loanBook(result.data.userId, book.Id));
+        await this.loadBooks();
+      } catch (error) {
+        alert('Error al prestar el libro');
+      }
+    }
   }
 
   async openCreateBookModal() {
