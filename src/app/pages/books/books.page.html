@@ -1,0 +1,10 @@
+  <div class="content-container">
+    <ion-spinner *ngIf="isLoading" name="crescent"></ion-spinner>
+
+    <div *ngIf="!isLoading">
+      <app-book-accordion 
+        [books]="books"
+        (loanBook)="onLoanBook($event)">
+      </app-book-accordion>
+    </div>
+  </div>

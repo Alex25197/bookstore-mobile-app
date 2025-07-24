@@ -1,0 +1,11 @@
+.content-container {
+  min-height: calc(100vh - 56px);
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+
+  ion-spinner {
+    margin: auto;
+    --size: 40px;
+  }
+} 

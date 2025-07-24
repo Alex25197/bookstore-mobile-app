@@ -1,0 +1,83 @@
+ion-accordion-group {
+  margin: 0;
+}
+
+.book-accordion {
+  margin-bottom: 8px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  &.expanded {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  }
+
+  ion-item.book-header {
+    --padding-start: 8px;
+    --inner-padding-end: 8px;
+
+    ion-avatar {
+      width: 48px;
+      height: 48px;
+      margin: 8px;
+      background: var(--ion-color-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      ion-icon {
+        font-size: 24px;
+        color: white;
+      }
+    }
+
+    ion-label {
+      h2 {
+        font-weight: 600;
+        font-size: 16px;
+        margin-bottom: 4px;
+      }
+
+      p {
+        color: var(--ion-color-medium);
+        font-size: 14px;
+      }
+    }
+
+    ion-badge {
+      font-weight: 500;
+      padding: 4px 8px;
+    }
+  }
+}
+
+.book-content {
+  padding: 16px;
+
+  ion-list {
+    margin-bottom: 16px;
+
+    ion-item {
+      --padding-start: 0;
+      --inner-padding-end: 0;
+
+      ion-label {
+        ion-text {
+          font-size: 12px;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+        }
+
+        p {
+          font-size: 14px;
+          margin-top: 4px;
+          color: var(--ion-color-dark);
+        }
+      }
+    }
+  }
+
+  .loan-button {
+    margin: 8px 0;
+  }
+} 
