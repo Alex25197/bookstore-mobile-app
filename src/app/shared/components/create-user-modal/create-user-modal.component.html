@@ -1,0 +1,58 @@
+<app-base-modal 
+  [title]="'Crear Usuario'" 
+  (dismissModal)="onDismiss()">
+
+  <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+    <ion-list>
+      <ion-item>
+        <ion-label position="stacked">Nombre</ion-label>
+        <ion-input 
+          type="text" 
+          formControlName="Name"
+          [clearInput]="true"
+          placeholder="Ingrese el nombre">
+        </ion-input>
+        <ion-note slot="error" *ngIf="userForm.get('Name')?.touched && userForm.get('Name')?.errors?.['required']">
+          El nombre es requerido
+        </ion-note>
+        <ion-note slot="error" *ngIf="userForm.get('Name')?.touched && userForm.get('Name')?.errors?.['minlength']">
+          El nombre debe tener al menos 3 caracteres
+        </ion-note>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Email</ion-label>
+        <ion-input 
+          type="email" 
+          formControlName="Email"
+          [clearInput]="true"
+          placeholder="Ingrese el email">
+        </ion-input>
+        <ion-note slot="error" *ngIf="userForm.get('Email')?.touched && userForm.get('Email')?.errors?.['required']">
+          El email es requerido
+        </ion-note>
+        <ion-note slot="error" *ngIf="userForm.get('Email')?.touched && userForm.get('Email')?.errors?.['email']">
+          Ingrese un email válido
+        </ion-note>
+      </ion-item>
+    </ion-list>
+
+    <!-- Error message -->
+    <div class="error-container" *ngIf="error">
+      <ion-text color="danger">
+        <p>{{ error }}</p>
+      </ion-text>
+    </div>
+  </form>
+
+  <div footer>
+    <ion-button 
+      expand="block" 
+      (click)="onSubmit()"
+      [disabled]="!userForm.valid || isLoading">
+      <ion-spinner name="circular" *ngIf="isLoading"></ion-spinner>
+      <span *ngIf="!isLoading">Crear Usuario</span>
+    </ion-button>
+  </div>
+
+</app-base-modal> 

@@ -1,0 +1,24 @@
+ion-accordion {
+  margin-bottom: 0.5rem;
+}
+
+ion-item {
+  --padding-start: 0;
+}
+
+ion-label {
+  h3 {
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+  }
+  
+  p {
+    color: var(--ion-color-medium);
+    margin: 0.25rem 0;
+  }
+}
+
+.loan-count {
+  margin-left: 0.5rem;
+  vertical-align: middle;
+}

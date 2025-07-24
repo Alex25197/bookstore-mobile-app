@@ -6,10 +6,16 @@
   </ion-toolbar>
 </ion-header>
 
-<app-user-accordion [users]="users"></app-user-accordion>
+<div class="content-container">
+  <ion-spinner *ngIf="isLoading" name="crescent"></ion-spinner>
+
+  <div *ngIf="!isLoading">
+    <app-user-accordion [users]="users"></app-user-accordion>
+  </div>
+</div>
 
 <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-  <ion-fab-button>
+  <ion-fab-button (click)="openCreateUserModal()">
     <ion-icon name="add"></ion-icon>
   </ion-fab-button>
 </ion-fab> 
