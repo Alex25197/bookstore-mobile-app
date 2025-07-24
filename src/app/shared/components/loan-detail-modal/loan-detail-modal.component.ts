@@ -18,6 +18,7 @@ export class LoanDetailModalComponent implements OnInit {
   loan?: Loan;
   isLoading = true;
   error: string | null = null;
+  isReturning = false;
 
   constructor(
     private modalService: ModalService,
@@ -39,7 +40,21 @@ export class LoanDetailModalComponent implements OnInit {
     }
   }
 
-  onDismiss() {
-    this.modalService.dismiss();
+  async onReturnBook() {
+    if (!this.loan) return;
+    this.isReturning = true;
+    try {
+      await this.loanService.returnBook(this.loan.Id).toPromise();
+      this.onDismiss(true);
+    } catch (err) {
+      this.error = 'Error al devolver el libro';
+      console.error(err);
+    } finally {
+      this.isReturning = false;
+    }
+  }
+
+  onDismiss(success: boolean = false) {
+    this.modalService.dismiss({ success });
   }
 } 

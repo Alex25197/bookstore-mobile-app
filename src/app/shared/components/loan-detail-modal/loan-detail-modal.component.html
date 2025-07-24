@@ -83,7 +83,7 @@
             </ion-label>
           </ion-item>
           <ion-item *ngIf="loan.ReturnDate">
-            <ion-icon name="calendar-check" slot="start"></ion-icon>
+            <ion-icon name="calendar-outline" slot="start"></ion-icon>
             <ion-label>
               <p>Fecha de devolución</p>
               <h3>{{ loan.ReturnDate | date:'medium' }}</h3>
@@ -96,6 +96,13 @@
 
   <!-- Footer actions -->
   <div footer>
+    <ion-button expand="block" color="primary" *ngIf="loan && !loan.Returned && !isReturning" (click)="onReturnBook()">
+      Devolver
+    </ion-button>
+    <ion-button expand="block" color="primary" *ngIf="isReturning" disabled>
+      <ion-spinner name="crescent"></ion-spinner>
+      Devolviendo...
+    </ion-button>
     <ion-button expand="block" (click)="onDismiss()">
       Cerrar
     </ion-button>
