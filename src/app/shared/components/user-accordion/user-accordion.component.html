@@ -1,0 +1,62 @@
+<ion-accordion-group>
+  <ion-accordion *ngFor="let user of users" [value]="user.Id.toString()">
+    <ion-item slot="header" color="light">
+      <ion-avatar slot="start">
+        <img src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+      </ion-avatar>
+      <ion-label>
+        {{ user.Name }}
+      </ion-label>
+      <ion-badge slot="end" [color]="user.Loans.length > 0 ? 'primary' : 'medium'">
+        {{ user.Loans.length }} préstamos
+      </ion-badge>
+    </ion-item>
+    <div class="ion-padding" slot="content">
+      <ion-list>
+        <ion-item>
+          <ion-label>
+            <h3>Email</h3>
+            <p>{{ user.Email }}</p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <h3>Fecha de creación</h3>
+            <p>{{ user.CreatedAt | date:'short' }}</p>
+          </ion-label>
+        </ion-item>
+        
+        <!-- Sección de Préstamos -->
+        <ion-item-divider>
+          <ion-label>
+            Préstamos
+          </ion-label>
+        </ion-item-divider>
+        
+        <ion-item *ngIf="user.Loans.length === 0">
+          <ion-label color="medium">
+            <p>Sin préstamos activos</p>
+          </ion-label>
+        </ion-item>
+
+        <ion-item *ngFor="let loan of user.Loans">
+          <ion-label>
+            <h3>Préstamo #{{ loan.Id }}</h3>
+            <p>
+              <ion-text [color]="loan.Returned ? 'success' : 'warning'">
+                {{ loan.Returned ? 'Devuelto' : 'En préstamo' }}
+              </ion-text>
+            </p>
+            <p>Prestado: {{ loan.LoanDate | date:'short' }}</p>
+            <p *ngIf="loan.ReturnDate">
+              Devuelto: {{ loan.ReturnDate | date:'short' }}
+            </p>
+          </ion-label>
+          <ion-badge slot="end" [color]="loan.Returned ? 'success' : 'warning'">
+            {{ loan.Returned ? 'Devuelto' : 'Pendiente' }}
+          </ion-badge>
+        </ion-item>
+      </ion-list>
+    </div>
+  </ion-accordion>
+</ion-accordion-group> 
