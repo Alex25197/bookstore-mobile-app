@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { SharedModule } from '../../shared/shared.module';
 import { BookAccordionComponent } from '../../shared/components/book-accordion/book-accordion.component';
 import { Book } from '../../core/models/book.model';
+import { BookService } from '../../core/services/book.service';
+import { ModalService } from '../../shared/services/modal.service';
+import { CreateBookModalComponent } from '../../shared/components/create-book-modal/create-book-modal.component';
 import { firstValueFrom } from 'rxjs';
 
 @Component({
@@ -15,7 +18,10 @@ export class BooksPage implements OnInit {
   books: Book[] = [];
   isLoading = false;
 
-  constructor() {}
+  constructor(
+    private bookService: BookService,
+    private modalService: ModalService
+  ) {}
 
   ngOnInit() {
     this.loadBooks();
@@ -24,29 +30,8 @@ export class BooksPage implements OnInit {
   async loadBooks() {
     this.isLoading = true;
     try {
-      // TODO: Implementar el servicio de libros
-      // const books = await firstValueFrom(this.bookService.getBooks());
-      // this.books = books || [];
-      
-      // Datos de prueba
-      this.books = [
-        {
-          Id: 1,
-          Title: 'El Señor de los Anillos',
-          Author: 'J.R.R. Tolkien',
-          Isbn: '978-0261102385',
-          Available: true,
-          CreatedAt: new Date().toISOString()
-        },
-        {
-          Id: 2,
-          Title: 'Cien años de soledad',
-          Author: 'Gabriel García Márquez',
-          Isbn: '978-0307474728',
-          Available: false,
-          CreatedAt: new Date().toISOString()
-        }
-      ];
+      const books = await firstValueFrom(this.bookService.getBooks());
+      this.books = books || [];
     } catch (error) {
       console.error('Error loading books:', error);
       this.books = [];
@@ -58,5 +43,14 @@ export class BooksPage implements OnInit {
   async onLoanBook(book: Book) {
     // TODO: Implementar la lógica de préstamo
     console.log('Préstamo solicitado para:', book);
+  }
+
+  async openCreateBookModal() {
+    const modal = await this.modalService.present(CreateBookModalComponent);
+    const result = await modal.onWillDismiss();
+    
+    if (result.data?.success) {
+      await this.loadBooks(); // Recargar la lista después de crear un libro
+    }
   }
 } 

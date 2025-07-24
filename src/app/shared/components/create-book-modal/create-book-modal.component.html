@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Crear Libro</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cancel()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form [formGroup]="bookForm" (ngSubmit)="onSubmit()">
+    <ion-list>
+      <ion-item>
+        <ion-label position="stacked">Título</ion-label>
+        <ion-input formControlName="Title" placeholder="Ingrese el título del libro"></ion-input>
+        <ion-note slot="error" *ngIf="bookForm.get('Title')?.touched && bookForm.get('Title')?.errors?.['required']">
+          El título es requerido
+        </ion-note>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Autor</ion-label>
+        <ion-input formControlName="Author" placeholder="Ingrese el autor"></ion-input>
+        <ion-note slot="error" *ngIf="bookForm.get('Author')?.touched && bookForm.get('Author')?.errors?.['required']">
+          El autor es requerido
+        </ion-note>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">ISBN</ion-label>
+        <ion-input formControlName="Isbn" placeholder="Ingrese el ISBN"></ion-input>
+        <ion-note slot="error" *ngIf="bookForm.get('Isbn')?.touched && bookForm.get('Isbn')?.errors?.['required']">
+          El ISBN es requerido
+        </ion-note>
+      </ion-item>
+    </ion-list>
+
+    <div class="ion-padding">
+      <ion-button expand="block" type="submit" [disabled]="!bookForm.valid || isLoading">
+        <ion-spinner *ngIf="isLoading" name="crescent"></ion-spinner>
+        <span *ngIf="!isLoading">Crear Libro</span>
+      </ion-button>
+    </div>
+  </form>
+</ion-content> 
